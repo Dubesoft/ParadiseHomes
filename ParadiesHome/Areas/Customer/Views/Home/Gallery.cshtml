@@ -1,0 +1,200 @@
+﻿@model ParadiesHome.Models.ViewModels.IndexViewModel
+
+@{
+    ViewData["Title"] = "Gallery";
+    Layout = null;
+}
+
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Manor a Real Estate Category Bootstrap responsive Website Template | About :: w3layouts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Manor Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript">
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!-- bootstrap-css -->
+    <link href="~/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <!--// bootstrap-css -->
+    <!-- css -->
+    <link rel="stylesheet" href="~/css/style.css" type="text/css" media="all" />
+    <!--// css -->
+    <!-- css -->
+    <link rel="stylesheet" href="~/css/team.css" type="text/css" media="all" />
+    <!--// css -->
+    <link rel="stylesheet" href="~/css/owl.carousel.css" type="text/css" media="all">
+    <!-- font-awesome icons -->
+    <link href="~/css/font-awesome.css" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <!-- font -->
+    <link href="//fonts.googleapis.com/css?family=Montserrat:200,200i,300,400,400i,500,600,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+    <!-- //font -->
+</head>
+
+<body>
+    <div class="inner_agile_pages">
+        <div class="main_agileits">
+            <partial name="_Header" />
+        </div>
+    </div>
+    <!-- //banner -->
+    <!--/w3_short-->
+    <div class="services-breadcrumb">
+        <div class="agile_inner_breadcrumb">
+
+            <ul class="w3_short">
+                <li><a href="index.html">Home</a><span>|</span></li>
+                <li>About</li>
+            </ul>
+        </div>
+    </div>
+    <!--//w3_short-->
+    <!-- gallery -->
+
+    @if (Model.Gallery.Count() > 0)
+    {
+        <div class="welcome">
+            <div class="container">
+                <h2 class="agileinfo_header">Our Gallery</h2>
+                
+                <div class="w3layouts_gallery_grids">
+
+
+                    @foreach (var item in Model.Gallery)
+                    {
+                        var base64 = Convert.ToBase64String(item.Picture);
+                        var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+
+                        <div class="col-md-4 w3layouts_gallery_grid">
+                            <a href="@imgsrc" class="lsb-preview" data-lsb-group="header">
+                                <div class="w3layouts_news_grid">
+                                    <img src="@imgsrc" alt=" " class="img-responsive">
+                                    <div class="w3layouts_news_grid_pos">
+                                        <div class="wthree_text"><h3 class="text-center">@item.Name</h3></div>
+                                    </div>
+                                    <p class="agile_para text-center">@item.Description</p>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+
+    }
+    else
+    {
+        <p>No Gallery Exist...</p>
+    }
+
+
+
+
+
+
+
+
+
+
+
+    <!-- //gallery -->
+    <!-- footer -->
+    <partial name="_Footer" />
+    <!-- //footer -->
+    <script src="~/js/jquery-2.1.4.min.js"></script>
+    <script src="~/js/search.js"></script>
+    <!-- start-smooth-scrolling -->
+    <script type="text/javascript" src="js/move-top.js"></script>
+    <script type="text/javascript" src="~/js/easing.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 1000);
+            });
+        });
+    </script>
+    <!-- start-smooth-scrolling -->
+    <!-- here stars scrolling icon -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /*
+                var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+                };
+            */
+
+            $().UItoTop({
+                easingType: 'easeOutQuart'
+            });
+
+        });
+    </script>
+    <!-- //here ends scrolling icon -->
+    <!-- stats -->
+    <script type="text/javascript" src="~/js/numscroller-1.0.js"></script>
+    <!-- //stats -->
+    <!-- carousel -->
+    <script src="~/js/owl.carousel.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#owl-demo").owlCarousel({
+                items: 1,
+                itemsDesktop: [768, 1],
+                itemsDesktopSmall: [414, 1],
+                lazyLoad: true,
+                autoPlay: true,
+                navigation: true,
+
+                navigationText: false,
+                pagination: true,
+
+            });
+
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#owl-demo2").owlCarousel({
+                items: 1,
+                itemsDesktop: [768, 1],
+                itemsDesktopSmall: [414, 1],
+                lazyLoad: true,
+                autoPlay: true,
+                navigation: true,
+
+                navigationText: false,
+                pagination: true,
+
+            });
+
+        });
+    </script>
+    <!-- //carousel -->
+    <script src="~/js/bootstrap.js"></script>
+</body>
+
+</html>
