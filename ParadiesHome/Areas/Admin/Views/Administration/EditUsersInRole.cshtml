@@ -1,0 +1,35 @@
+﻿@model List<UserRoleModel>
+
+@{
+    ViewData["Title"] = "EditUsersInRole";
+}
+
+<h2>EditUsersInRole</h2>
+
+<br />
+<h2 class="text-info">Create Role</h2>
+<br />
+
+<form method="post">
+    <div class="border backgroundWhite">
+        <div class="card">
+            <div class="card-header">
+
+            </div>
+            <div class="card-body">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <div class="form-check m-1">
+                        <input type="hidden" asp-for="@Model[i].UserId" />
+                        <input type="hidden" asp-for="@Model[i].UserName" />
+                        <input asp-for="@Model[i].IsSelected" class="form-check-input" />
+                        <label class="col-form-label">@Model[i].UserName</label>
+                    </div>
+                }
+            </div>
+            <div class="card-footer">
+                <input type="submit" class="btn btn-info form-control" value="Create" style="width:auto" />
+            </div>
+        </div>
+    </div>
+</form>

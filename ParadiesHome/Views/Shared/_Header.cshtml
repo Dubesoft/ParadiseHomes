@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <h1><a class="navbar-brand" href="index.html"><span><i class="fa fa-home" aria-hidden="true"></i></span>Manor</a></h1>
+            <h1><a class="navbar-brand" asp-controller="Home" asp-action="Index"><span><i class="fa fa-home" aria-hidden="true"></i></span>Paradise Homes</a></h1>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
 
@@ -16,7 +16,6 @@
                 <ul class="nav navbar-nav">
                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")"><a asp-action="Index" asp-controller="Home">Home</a></li>
                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "About" ? "active" : "")"><a asp-action="About" asp-controller="Home">About</a></li>
-                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Gallery" ? "active" : "")"><a asp-action="Index" asp-controller="Gallery" asp-area="Admin">Gallery Test</a></li>
                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Gallery" ? "active" : "")"><a asp-action="Gallery" asp-controller="Home">Gallery</a></li>
                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Blog" ? "active" : "")"><a asp-action="Blog" asp-controller="Home">Blog</a></li>
                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Contact" ? "active" : "")"><a asp-action="Contact" asp-controller="Home">Contact Us</a></li>

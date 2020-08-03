@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -17,10 +19,12 @@ namespace ParadiesHome.Controllers
     {
 
         private readonly ApplicationDbContext _db;
+        private readonly IEmailSender _emailSender;
 
-        public HomeController(ApplicationDbContext db)
+        public HomeController(ApplicationDbContext db, IEmailSender emailSender)
         {
             _db = db;
+            _emailSender = emailSender;
         }
 
         
@@ -31,6 +35,17 @@ namespace ParadiesHome.Controllers
 
         public IActionResult Contact()
         {
+            //await _emailSender.SendEmailAsync()
+            return View();
+        }
+
+        //POST 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Contact(Contact contact)
+        {
+            await _emailSender.SendEmailAsync(contact.Email, contact.Subject, contact.Message);
+
             return View();
         }
 
@@ -49,9 +64,28 @@ namespace ParadiesHome.Controllers
             return View(indexVM);
         }
 
-        public IActionResult Blog()
+        [HttpGet]
+        public async Task<IActionResult> Blog()
         {
-            return View();
+
+            var postList = await _db.Post.ToListAsync();
+                //CommentCount = await _db.CommentCount.ToListAsync()
+            //var postList = await _db.Post.ToListAsync();
+            for (int i = 0; i < postList.Count(); i++)
+            {
+                var commentCount = await _db.CommentCount.Where(c => c.PostId == postList[i].PostId).ToListAsync();
+                var likeCount = await _db.LikeCount.Where(l => l.PostId == postList[i].PostId).ToListAsync();
+                foreach (var item in commentCount)
+                {
+                    HttpContext.Session.SetInt32("cmtCount" + i, item.Count);
+                }
+
+                foreach (var item in likeCount)
+                {
+                    HttpContext.Session.SetInt32("likesCount" + i, item.Count);
+                }
+            }
+            return View(postList);
         }
 
         public IActionResult Privacy()

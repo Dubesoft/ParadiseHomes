@@ -1,0 +1,57 @@
+﻿@model Post
+
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<h2 class="text-info">Post Detail</h2>
+<br />
+
+<form method="post" asp-action="Edit" enctype="multipart/form-data">
+    <div class="border backgroundWhite">
+        <br />
+        <div class="col-12 border">
+            @{
+                var base64 = Convert.ToBase64String(Model.Picture);
+                var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+            }
+            <img src="@imgsrc" height="100%" width="100%" />
+        </div>
+        <div class="col-12 pt-4">
+            <input type="hidden" asp-for="PostId" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Title" class="col-form-label"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Title" class="form-control" readonly />
+                </div>
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Description" class="col-form-label"></label>
+                </div>
+                <div class="col-5">
+                    <textarea asp-for="Description" class="form-control" readonly></textarea>
+                </div>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-5">
+                    <div class="row">
+                        <div class="col-6">
+                            <a asp-action="Edit" asp-route-id="@Model.PostId" class="btn btn-primary form-control">Update Gallery</a>
+                        </div>
+                        <div class="col-6">
+                            <a asp-action="Index" class="btn btn-success form-control">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

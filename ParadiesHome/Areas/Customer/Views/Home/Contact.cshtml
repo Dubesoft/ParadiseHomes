@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Contact
+
+@{
     ViewData["Title"] = "Contact";
     Layout = null;
 }
@@ -110,15 +112,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </div>
                 <div class="clearfix"> </div>
                 <div class="w3layouts_mail_grid">
-                    <form action="#" method="post">
+                    <form asp-action="Contact" method="post">
                         <div class="col-md-6 wthree_contact_left_grid">
                             <input type="text" name="Name" placeholder="Name" required="">
-                            <input type="email" name="Email" placeholder="Email" required="">
+                            <input type="email" asp-for="Email" name="Email" placeholder="Email" required="">
                             <input type="text" name="Telephone" placeholder="Telephone" required="">
-                            <input type="text" name="Subject" placeholder="Subject" required="">
+                            <input type="text" asp-for="Subject" name="Subject" placeholder="Subject" required="">
                         </div>
                         <div class="col-md-6 wthree_contact_left_grid">
-                            <textarea name="Message" placeholder="Message..." required=""></textarea>
+                            <textarea name="Message" asp-for="Message" placeholder="Message..." required=""></textarea>
                             <input type="submit" value="Submit">
                         </div>
                         <div class="clearfix"> </div>

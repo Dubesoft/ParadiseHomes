@@ -1,4 +1,19 @@
-﻿
+﻿@model IEnumerable<Post>
+
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Http;
+
+@inject IHttpContextAccessor HttpContextAccessor
+
+@inject SignInManager<IdentityUser> signInManager
+@inject UserManager<IdentityUser> userManager
+
+@{
+    var user = await userManager.GetUserAsync(User);
+
+}
+
+
 @{
     ViewData["Title"] = "Blog";
     Layout = null;
@@ -69,110 +84,97 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="banner_bottom_w3ls_agile">
         <div class="container">
             <h3 class="agile_heading inner">Blog</h3>
-            <p class="sub_cap">Phasellus dapibus felis elit, sed accumsan arcu gravida vitae.</p>
+            <p class="sub_cap">Let us know what you think about our Product and Services</p>
             <div class="agile_inner_info">
                 <div class="col-md-7 w3agile_blog_left">
-                    <div class="w3agile_blog_left_grid">
-                        <div class="w3agile_blog_left_grid_l">
-                            <p>May</p>
-                            <h4>25</h4>
-                            <p>2017</p>
-                        </div>
-                        <div class="w3agile_blog_left_grid_r">
-                            <h3><a href="single.html">Donec ultricies ante sed nulla <span>vitae ante mauris</span></a></h3>
-                            <ul>
-                                <li><span class="fa fa-user" aria-hidden="true"></span><a href="#">Michael Carl</a><i>|</i></li>
-                                <li><span class="fa fa-heart-o" aria-hidden="true"></span><a href="#">33</a><i>|</i></li>
-                                <li><span class="fa fa-tags" aria-hidden="true"></span><a href="#">12</a><i>|</i></li>
-                                <li><span class="fa fa-pencil-square-o" aria-hidden="true"></span>Lobortis</li>
-                            </ul>
-                        </div>
-                        <div class="clearfix"> </div>
-                        <div class="w3agile_blog_left_grid_sub">
-                            <a href="single.html"><img src="/images/banner.jpg" alt=" " class="img-responsive" /></a>
-                        </div>
+                    @{var i = 0;}
+                    @if (Model.Count() > 0)
+                    {
+                        foreach (var post in Model)
+                        {
+                            <div class="w3agile_blog_left_grid">
+                                <div class="w3agile_blog_left_grid_l">
+                                    <p>@post.DateCreated.ToString("MMM")</p>
+                                    <h4>@post.DateCreated.ToString("dd")</h4>
+                                    <p>@post.DateCreated.ToString("yyy")</p>
+                                </div>
+                                <div class="w3agile_blog_left_grid_r">
+                                    <h3><a href="single.html">@post.Title <span>vitae ante mauris</span></a></h3>
+                                    <ul>
+                                        <li><span class="fa fa-user" aria-hidden="true"></span><a href="#">Michael Carl</a><i>|</i></li>
+                                        @if (HttpContextAccessor.HttpContext.Session.GetInt32("likesCount" + i) != null)
+                                        {
+                                            <li><span class="fa fa-thumbs-o-up" aria-hidden="true"></span><a href="#">@HttpContextAccessor.HttpContext.Session.GetInt32("likesCount" + i) Likes(s)</a><i>|</i></li>
+                                        }
+                                        else
+                                        {
+                                            <li><span class="fa fa-thumbs-o-up" aria-hidden="true"></span><a href="#">0 Likes</a><i>|</i></li>
+                                        }
 
-                        <div class="w3agile_blog_left_grid_sub1">
-                            <div class="w3agile_blog_left_grid_sub1_pos">
-                                <p>
-                                    <i class="fa fa-quote-right" aria-hidden="true"></i> Vivamus malesuada vehicula diam, a lobortis lectus luctus id.
-                                    Curabitur a sapien et tellus faucibus eleifend sit amet ut turpis. Mauris ut odio sed nisi convallis convallis.Aenean
-                                    vel massa in lacus lobortis congue. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-                                    mus..
-                                </p>
-                            </div>
-                        </div>
-                        <div class="agileits-button two single">
-                            <a href="single.html" class="btn btn-primary">Read More <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                    <div class="w3agile_blog_left_grid">
-                        <div class="w3agile_blog_left_grid_l">
-                            <p>June</p>
-                            <h4>28</h4>
-                            <p>2017</p>
-                        </div>
-                        <div class="w3agile_blog_left_grid_r">
-                            <h3><a href="single.html">Vivamus nisl odio, facilisis <span>suscipit eget</span></a></h3>
-                            <ul>
-                                <li><span class="fa fa-user" aria-hidden="true"></span><a href="#">James</a><i>|</i></li>
-                                <li><span class="fa fa-heart-o" aria-hidden="true"></span><a href="#">23</a><i>|</i></li>
-                                <li><span class="fa fa-tags" aria-hidden="true"></span><a href="#">12</a><i>|</i></li>
-                                <li><span class="fa fa-pencil-square-o" aria-hidden="true"></span>Lobortis</li>
-                            </ul>
-                        </div>
-                        <div class="clearfix"> </div>
-                        <div class="w3agile_blog_left_grid_sub">
-                            <a href="single.html"><img src="/images/banner2.jpg" alt=" " class="img-responsive" /></a>
-                        </div>
-                        <div class="w3agile_blog_left_grid_sub1">
-                            <div class="w3agile_blog_left_grid_sub1_pos">
-                                <p>
-                                    <i class="fa fa-quote-right" aria-hidden="true"></i> Vivamus malesuada vehicula diam, a lobortis lectus luctus id.
-                                    Curabitur a sapien et tellus faucibus eleifend sit amet ut turpis. Mauris ut odio sed nisi convallis convallis.Aenean
-                                    vel massa in lacus lobortis congue. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-                                    mus..
-                                </p>
-                            </div>
-                        </div>
-                        <div class="agileits-button two single">
-                            <a href="single.html" class="btn btn-primary">Read More <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                    <div class="w3agile_blog_left_grid">
-                        <div class="w3agile_blog_left_grid_l">
-                            <p>July</p>
-                            <h4>03</h4>
-                            <p>2017</p>
-                        </div>
-                        <div class="w3agile_blog_left_grid_r">
-                            <h3><a href="single.html">Nam pellentesque scelerisque <span>neque sit amet</span></a></h3>
-                            <ul>
-                                <li><span class="fa fa-user" aria-hidden="true"></span><a href="#">Alley James</a><i>|</i></li>
-                                <li><span class="fa fa-heart-o" aria-hidden="true"></span><a href="#">43</a><i>|</i></li>
-                                <li><span class="fa fa-tags" aria-hidden="true"></span><a href="#">12</a><i>|</i></li>
-                                <li><span class="fa fa-pencil-square-o" aria-hidden="true"></span>Lobortis</li>
-                            </ul>
-                        </div>
-                        <div class="clearfix"> </div>
-                        <div class="w3agile_blog_left_grid_sub">
-                            <a href="single.html"><img src="/images/banner1.jpg" alt=" " class="img-responsive" /></a>
-                        </div>
-                        <div class="w3agile_blog_left_grid_sub1">
+                                        @if (HttpContextAccessor.HttpContext.Session.GetInt32("cmtCount" + i) != null)
+                                        {
+                                            <li><span class="fa fa-thumbs-o-up" aria-hidden="true"></span><a href="#">@HttpContextAccessor.HttpContext.Session.GetInt32("cmtCount" + i) Comment(s)</a><i>|</i></li>
+                                        }
+                                        else
+                                        {
+                                            <li><span class="fa fa-thumbs-o-up" aria-hidden="true"></span><a href="#">0 Comment</a><i>|</i></li>
+                                        }
 
-                            <div class="w3agile_blog_left_grid_sub1_pos">
-                                <p>
-                                    <i class="fa fa-quote-right" aria-hidden="true"></i> Vivamus malesuada vehicula diam, a lobortis lectus luctus id.
-                                    Curabitur a sapien et tellus faucibus eleifend sit amet ut turpis. Mauris ut odio sed nisi convallis convallis.Aenean
-                                    vel massa in lacus lobortis congue. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-                                    mus..
-                                </p>
+                                        <button class="btn btn-default btn-xs" onclick="commentModal('/Customer/Blog/GetComments?Id=@post.PostId')"><li><span class="fa fa-eye" aria-hidden="true"></span>View Comments</li></button>
+                                        <button class='btn btn-default btn-xs addlike' data-id="@post.PostId"><li><span class="fa fa-thumbs-up" aria-hidden="true"></span>Like</li></button>
+                                    </ul>
+                                    <br />
+                                </div>
+                                <div class="clearfix"> </div>
+                                <div class="w3agile_blog_left_grid_sub">
+                                    @if (post.Picture != null)
+                                    {
+                                        var base64 = Convert.ToBase64String(post.Picture);
+                                        var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+
+                                        <a href="single.html"><img src="@imgsrc" alt=" " class="img-responsive" /></a>
+                                    }
+                                    else
+                                    {
+                                        <a href="single.html"><img src="/images/banner.jpg" alt=" " class="img-responsive" /></a>
+                                    }
+
+                                </div>
+
+                                <div class="w3agile_blog_left_grid_sub1">
+                                    <div class="w3agile_blog_left_grid_sub1_pos">
+                                        <p>
+                                            <i class="fa fa-quote-right" aria-hidden="true"></i>
+                                            @post.Description
+                                        </p>
+                                    </div>
+                                </div>
+                                @{
+                                    i++;
+
+                                }
+
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control input-sm" id="@string.Format("{0}_{1}", "comment", post.PostId)" placeholder="Enter your comment here and Press enter to post comment...">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-primary addcomment" data-id="@post.PostId">Comment</button>
+                                    </div>
+                                </div>
+                                <div class="agileits-button two single">
+                                    <a href="single.html" class="btn btn-primary">Read More <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="agileits-button two single">
-                            <a href="single.html" class="btn btn-primary">Read More <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>No Post Exist...</p>
+                    }
+
+
+
                     <nav aria-label="Page navigation">
                         <ul class="w3_pagination">
                             <li class="disabled"><a class="active_p" href="#" aria-label="previous"><span aria-hidden="true">&laquo;</span></a></li>
@@ -341,6 +343,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- //Blog -->
     <!-- footer -->
     <partial name="_Footer" />
+
+    <div class="modal fade" id="commentModal" role="dialog">
+        <div class="modal-dialog modals-default">
+            <div class="modal-content">
+                <div id="commentDetail">
+
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- //footer -->
     <script src="~/js/jquery-2.1.4.min.js"></script>
     <script src="~/js/search.js"></script>
@@ -414,6 +426,98 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
             });
 
+        });
+    </script>
+
+    <script>
+
+        var URL = "";
+        function commentModal(URL) {
+
+            $.ajax({
+                type: "GET",
+                url: URL,
+                success: function (data) {
+                    $("#commentDetail").html(data);
+                }
+            });
+
+            $("#commentModal").modal();
+        }
+
+    </script>
+
+    <script>
+
+        $('.addcomment').on('click', function () {
+            var postId = $(this).attr('data-id');
+            var commentMsg = $('#comment_' + postId).val();
+
+            if (commentMsg == null || commentMsg == "") {
+                alert("You are not alllowed to submit an empty Comment");
+                window.location = "/Customer/Home/Blog";
+            } else {
+
+                var model = {
+                    PostId: parseInt(postId),
+                    Comment: commentMsg
+                };
+
+                $.ajax({
+                    url: "/Customer/Blog/PostComment",
+                    type: 'POST',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify(model),
+                    success: function (data) {
+                        $('#comment_' + postId).val("");
+                        if (data.status == 'ok') {
+                            window.location = "/Customer/Home/Blog";
+                            //alert("Comment Successfully");
+                        } else {
+                            alert("Unable to Comment on this post");
+                        }
+
+                    },
+                    error: function (e) {
+                        alert("Error");
+                    }
+
+                });
+            }
+        });
+    </script>
+
+
+    <script>
+
+        $('.addlike').on('click', function () {
+            var postId = $(this).attr('data-id');
+
+            var model = {
+                PostId: parseInt(postId),
+            };
+
+            $.ajax({
+                url: "/Customer/Blog/AddLike",
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify(model),
+                success: function (data) {
+                    if (data.status == 'ok') {
+                        window.location = "/Customer/Home/Blog";
+                        //alert("Comment Successfully");
+                    } else {
+                        alert("Unable to Comment on this post");
+                    }
+
+                },
+                error: function (e) {
+                    alert("Error");
+                }
+
+            });
         });
     </script>
     <!-- //carousel -->
